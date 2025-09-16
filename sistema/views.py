@@ -292,10 +292,6 @@ def estadisticas(request):
         rating__lte=3.0
     ).order_by('rating', 'name')[:5]
     
-    # Actividad de visualización (por fecha)
-    import datetime
-    from django.db.models import Count, TruncMonth
-    
     # Películas vistas por mes (últimos 12 meses)
     hace_un_ano = datetime.date.today() - datetime.timedelta(days=365)
 

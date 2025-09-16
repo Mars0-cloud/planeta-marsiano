@@ -26,28 +26,28 @@
             <div class="stats-card text-center p-4">
                 <i class="fas fa-film fa-3x text-primary mb-3"></i>
                 <h2 class="display-5 fw-bold text-primary">{{ total_peliculas }}</h2>
-                <p class="text-muted fs-6">Películas Totales</p>
+                <p class="text-muted fs-6 color-white">Películas Totales</p>
             </div>
         </div>
         <div class="col-lg-3 col-md-6 mb-4">
             <div class="stats-card text-center p-4">
                 <i class="fas fa-star fa-3x text-warning mb-3"></i>
                 <h2 class="display-5 fw-bold text-warning">{{ ratings_stats.promedio|floatformat:2 }}</h2>
-                <p class="text-muted fs-6">Rating Promedio</p>
+                <p class="text-muted fs-6 color-white">Rating Promedio</p>
             </div>
         </div>
         <div class="col-lg-3 col-md-6 mb-4">
             <div class="stats-card text-center p-4">
                 <i class="fas fa-crown fa-3x text-danger mb-3"></i>
                 <h2 class="display-5 fw-bold text-danger">{{ ratings_counts.cinco_estrellas }}</h2>
-                <p class="text-muted fs-6">Películas de 5⭐</p>
+                <p class="text-muted fs-6 color-white">Películas de 5⭐</p>
             </div>
         </div>
         <div class="col-lg-3 col-md-6 mb-4">
             <div class="stats-card text-center p-4">
                 <i class="fas fa-masks-theater fa-3x text-info mb-3"></i>
                 <h2 class="display-5 fw-bold text-info">{{ top_genres|length }}</h2>
-                <p class="text-muted fs-6">Géneros Diferentes</p>
+                <p class="text-muted fs-6 color-white">Géneros Diferentes</p>
             </div>
         </div>
     </div>
