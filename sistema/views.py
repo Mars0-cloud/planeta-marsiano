@@ -1,10 +1,14 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
-from django.db.models import Q
+from django.db.models import Q, Count, Avg, Max, Min
+from django.db.models.functions import TruncMonth
 from .models import WatchedMovie
+from pathlib import Path
+from collections import Counter
 import tmdbsimple as tmdb
 import csv
-from pathlib import Path
+import json
+import datetime
 
 tmdb.API_KEY = 'c053250666c459a40b3a858f5bb0fabe'
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -192,3 +196,160 @@ def obtener_peliculas_vistas():
         print(f"Error leyendo el archivo: {e}")
     
     return peliculas_vistas
+
+def estadisticas(request):
+    """Página de estadísticas completas de la biblioteca"""
+    
+    # Estadísticas básicas
+    total_peliculas = WatchedMovie.objects.count()
+    
+    if total_peliculas == 0:
+        # Si no hay películas, retornar valores por defecto
+        context = {
+            'total_peliculas': 0,
+            'mensaje': 'No hay películas en la biblioteca aún.'
+        }
+        return render(request, 'sistema/estadisticas.html', context)
+    
+    # Estadísticas de ratings
+    ratings_stats = WatchedMovie.objects.aggregate(
+        promedio=Avg('rating'),
+        maximo=Max('rating'),
+        minimo=Min('rating')
+    )
+    
+    # Distribución de ratings
+    ratings_distribution = WatchedMovie.objects.values('rating').annotate(
+        count=Count('rating')
+    ).order_by('-rating')
+    
+    # Distribución detallada de ratings
+    ratings_counts = {
+        '5_estrellas': WatchedMovie.objects.filter(rating=5.0).count(),
+        '4_5_estrellas': WatchedMovie.objects.filter(rating=4.5).count(),
+        '4_estrellas': WatchedMovie.objects.filter(rating=4.0).count(),
+        '3_5_estrellas': WatchedMovie.objects.filter(rating=3.5).count(),
+        '3_estrellas': WatchedMovie.objects.filter(rating=3.0).count(),
+        'menos_3': WatchedMovie.objects.filter(rating__lt=3.0).count(),
+    }
+    
+    # Top géneros
+    all_genres = []
+    for movie in WatchedMovie.objects.exclude(genres=''):
+        movie_genres = [g.strip() for g in movie.genres.split(',') if g.strip()]
+        all_genres.extend(movie_genres)
+    
+    genre_counter = Counter(all_genres)
+    top_genres = genre_counter.most_common(10)  # Top 10 géneros
+    
+    # Géneros específicos (los más comunes en cine)
+    genre_counts = {
+        'Drama': genre_counter.get('Drama', 0),
+        'Comedy': genre_counter.get('Comedy', 0),
+        'Action': genre_counter.get('Action', 0),
+        'Horror': genre_counter.get('Horror', 0),
+        'Thriller': genre_counter.get('Thriller', 0),
+        'Romance': genre_counter.get('Romance', 0),
+        'Science Fiction': genre_counter.get('Science Fiction', 0),
+        'Crime': genre_counter.get('Crime', 0),
+        'Adventure': genre_counter.get('Adventure', 0),
+        'Animation': genre_counter.get('Animation', 0),
+    }
+    
+    # Estadísticas por décadas
+    decades_stats = {}
+    for movie in WatchedMovie.objects.all():
+        if movie.year:
+            decade = (movie.year // 10) * 10
+            decade_key = f"{decade}s"
+            if decade_key not in decades_stats:
+                decades_stats[decade_key] = {'count': 0, 'avg_rating': 0, 'total_rating': 0}
+            decades_stats[decade_key]['count'] += 1
+            decades_stats[decade_key]['total_rating'] += (movie.rating or 0)
+    
+    # Calcular promedio por década
+    for decade in decades_stats:
+        if decades_stats[decade]['count'] > 0:
+            decades_stats[decade]['avg_rating'] = round(
+                decades_stats[decade]['total_rating'] / decades_stats[decade]['count'], 2
+            )
+    
+    # Ordenar décadas
+    decades_stats = dict(sorted(decades_stats.items(), key=lambda x: x[0], reverse=True))
+    
+    # Películas por año (últimos años con más actividad)
+    years_stats = WatchedMovie.objects.values('year').annotate(
+        count=Count('year'),
+        avg_rating=Avg('rating')
+    ).order_by('-count')[:10]
+    
+    # Mejores y peores películas
+    mejores_peliculas = WatchedMovie.objects.filter(
+        rating__gte=4.5
+    ).order_by('-rating', 'name')[:10]
+    
+    peores_peliculas = WatchedMovie.objects.filter(
+        rating__lte=3.0
+    ).order_by('rating', 'name')[:5]
+    
+    # Actividad de visualización (por fecha)
+    import datetime
+    from django.db.models import Count, TruncMonth
+    
+    # Películas vistas por mes (últimos 12 meses)
+    hace_un_ano = datetime.date.today() - datetime.timedelta(days=365)
+
+    actividad_mensual = (
+        WatchedMovie.objects
+        .filter(date__gte=hace_un_ano)
+        .annotate(month=TruncMonth('date'))
+        .values('month')
+        .annotate(count=Count('id'))
+        .order_by('month')
+    )
+    
+    # Más recientes
+    peliculas_recientes = WatchedMovie.objects.order_by('-date')[:5]
+    
+    # Datos para gráficos (JSON)
+    ratings_chart_data = {
+        'labels': [f"{item['rating']}" for item in ratings_distribution],
+        'data': [item['count'] for item in ratings_distribution]
+    }
+    
+    genres_chart_data = {
+        'labels': [genre[0] for genre in top_genres[:8]],  # Top 8 para que quepa bien
+        'data': [genre[1] for genre in top_genres[:8]]
+    }
+    
+    decades_chart_data = {
+        'labels': list(decades_stats.keys()),
+        'counts': [decades_stats[d]['count'] for d in decades_stats.keys()],
+        'ratings': [decades_stats[d]['avg_rating'] for d in decades_stats.keys()]
+    }
+    
+    context = {
+        'total_peliculas': total_peliculas,
+        'ratings_stats': ratings_stats,
+        'ratings_counts': ratings_counts,
+        'genre_counts': genre_counts,
+        'top_genres': top_genres,
+        'decades_stats': decades_stats,
+        'years_stats': years_stats,
+        'mejores_peliculas': mejores_peliculas,
+        'peores_peliculas': peores_peliculas,
+        'actividad_mensual': actividad_mensual,
+        'peliculas_recientes': peliculas_recientes,
+        
+        # Datos para gráficos
+        'ratings_chart_data': json.dumps(ratings_chart_data),
+        'genres_chart_data': json.dumps(genres_chart_data),
+        'decades_chart_data': json.dumps(decades_chart_data),
+        
+        # Porcentajes
+        'porcentaje_5_estrellas': round((ratings_counts['5_estrellas'] / total_peliculas) * 100, 1),
+        'porcentaje_horror': round((genre_counts['Horror'] / total_peliculas) * 100, 1) if total_peliculas > 0 else 0,
+        'porcentaje_drama': round((genre_counts['Drama'] / total_peliculas) * 100, 1) if total_peliculas > 0 else 0,
+    }
+    
+    return render(request, 'sistema/estadisticas.html', context)
