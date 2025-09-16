@@ -3,12 +3,12 @@
 {% block title %}Inicio - Lista{% endblock %}
 
 {% block contenido %}
-<div class="galeria-titulo text-center px-3 py-4 shadow-sm">
+<!-- <div class="galeria-titulo text-center px-3 py-4 shadow-sm">
     <h1>Bienvenido a la Lista</h1> 
     <p>Explora nuestra colección de películas y encuentra tu próxima favorita.</p>
-</div>
+</div> -->
 
-<div class="container mt-5">
+<div class="container mt-5 pt-5">
     <div class="row">
         <!-- FILTROS LATERALES -->
         <div class="col-md-3 mb-4">
@@ -49,13 +49,13 @@
                 {% for peli in peliculas %}
                     <div class="col-md-4 mb-4">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-body d-flex flex-column align-items-center">
+                            <div class="pelicula card-body d-flex flex-column align-items-center">
                                 <h5 class="card-title text-center">{{ peli.name }}</h5>
                                 <img src="{{ peli.poster_url }}" alt="{{ peli.name }}" class="img-fluid mb-3" style="max-height: 300px; object-fit: cover;">
-                                <p class="card-text text-center">{{ peli.overview|truncatewords:30 }}</p>
-                                {% if peli.vista %}
-                                    <span class="badge bg-success">Vista</span>
-                                {% endif %}
+                            
+                                <!-- {% if peli.vista %}
+                                    <span class="badge bg-success gap-4">Vista</span>
+                                {% endif %} -->
                                 <a href="{% url 'detalle_pelicula' peli.id %}" class="btn mt-auto">Ver detalle</a>
                             </div>
                         </div>
