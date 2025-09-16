@@ -95,12 +95,6 @@ body {
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
-.inicio-descripcion {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    margin: 40px;
-}
-
 .inicio-links {
     display: flex;
     gap: 20px;
@@ -136,6 +130,11 @@ body {
     background-color: var(--primary-color);
     color: var(--text-color2);
     text-decoration: none;
+}
+
+.btn-inicio:hover {
+    border: 2px solid var(--background-color2);
+    color: var(--background-color2);
 }
 
 /* Lista */

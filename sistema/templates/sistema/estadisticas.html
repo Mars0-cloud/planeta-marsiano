@@ -7,7 +7,7 @@
     <!-- Header -->
     <div class="row mb-4">
         <div class="col-12">
-            <div class="card text-white" style="background: linear-gradient(135deg, #50ae5d 0%, #1c1c1c 100%);">
+            <div class="card text-white" style="background-color: var(--primary-color);">
                 <div class="card-body text-center">
                     <h1 class="card-title mb-3">
                         <i class="fas fa-chart-line me-3"></i>Estadísticas de la Biblioteca
@@ -26,28 +26,28 @@
             <div class="stats-card text-center p-4">
                 <i class="fas fa-film fa-3x text-primary mb-3"></i>
                 <h2 class="display-5 fw-bold text-primary">{{ total_peliculas }}</h2>
-                <p class="text-muted fs-6 color-white">Películas Totales</p>
+                <p class="text-muted fs-6" style="color: white !important;">Películas Totales</p>
             </div>
         </div>
         <div class="col-lg-3 col-md-6 mb-4">
             <div class="stats-card text-center p-4">
                 <i class="fas fa-star fa-3x text-warning mb-3"></i>
                 <h2 class="display-5 fw-bold text-warning">{{ ratings_stats.promedio|floatformat:2 }}</h2>
-                <p class="text-muted fs-6 color-white">Rating Promedio</p>
+                <p class="text-muted fs-6" style="color: white !important;">Rating Promedio</p>
             </div>
         </div>
         <div class="col-lg-3 col-md-6 mb-4">
             <div class="stats-card text-center p-4">
                 <i class="fas fa-crown fa-3x text-danger mb-3"></i>
-                <h2 class="display-5 fw-bold text-danger">{{ ratings_counts.cinco_estrellas }}</h2>
-                <p class="text-muted fs-6 color-white">Películas de 5⭐</p>
+                <h2 class="display-5 fw-bold text-danger">{{ ratings_counts.5_estrellas }}</h2>
+                <p class="text-muted fs-6" style="color: white !important;">Películas de 5⭐</p>
             </div>
         </div>
         <div class="col-lg-3 col-md-6 mb-4">
             <div class="stats-card text-center p-4">
                 <i class="fas fa-masks-theater fa-3x text-info mb-3"></i>
                 <h2 class="display-5 fw-bold text-info">{{ top_genres|length }}</h2>
-                <p class="text-muted fs-6 color-white">Géneros Diferentes</p>
+                <p class="text-muted fs-6" style="color: white !important;">Géneros Diferentes</p>
             </div>
         </div>
     </div>
