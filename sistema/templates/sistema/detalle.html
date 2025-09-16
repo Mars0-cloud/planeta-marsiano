@@ -1,0 +1,50 @@
+{% extends 'sistema/base.html' %}
+{% load static %}
+{% block title %}{{ pelicula.name }} - Detalle{% endblock %}
+
+{% block contenido %}
+<div class="detalle container">
+    <div class="row g-4 align-items-start">
+        <div class="col-md-4">
+            <img src="{{ pelicula.poster_url }}" alt="{{ pelicula.name }}" class="img-fluid rounded shadow">
+        </div>
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h1 class="card-title mb-0">{{ pelicula.name }}</h1>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p><strong>Año:</strong> {{ pelicula.year }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Rating:</strong> {{ pelicula.rating }}</p>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <p><strong>Géneros:</strong> 
+                            <span class="badge bg-secondary">{{ pelicula.genres }}</span>
+                        </p>
+                    </div>
+                    <div class="mb-4">
+                        <h5>Sinopsis:</h5>
+                        <p class="text-justify">{{ pelicula.overview }}</p>
+                    </div>
+                    
+                    <div class="d-flex gap-2">
+                        <a href="{% url 'listado_peliculas' %}" class="btn">
+                            <i class="fas fa-arrow-left"></i> Volver al listado
+                        </a>
+                        <a href="{{ pelicula.letterboxd_uri }}" target="_blank" class="btn">
+                            <i class="fas fa-play"></i> Ver en Letterboxd
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}

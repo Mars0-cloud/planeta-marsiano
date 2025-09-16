@@ -1,0 +1,306 @@
+{% extends "sistema/base.html" %}
+{% load static %}
+{% block title %}Galería{% endblock %}
+
+{% block contenido %}
+
+    <div class="galeria-titulo text-center">
+        <h1>Galería</h1> 
+        <p>Explora nuestra galería de imágenes destacadas.</p>
+    </div>
+
+    <section class="carrusel mb-8 d-flex flex-column align-items-center">
+
+        <div class="carrusel-1 d-flex flex-row align-items-center gap-2 justify-content-center ">
+            <!-- Trainspotting -->
+    
+            <div class="mb-4 d-flex flex-column align-items-center">
+                <h3>Trainspotting</h3>
+                <div id="carouselTrainspotting" class="carousel slide">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselTrainspotting" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselTrainspotting" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselTrainspotting" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{%static 'img/trainspotting/trainspotting-portada.webp'%}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{%static 'img/trainspotting/trainspotting-face.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{%static 'img/trainspotting/banner.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselTrainspotting" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselTrainspotting" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+    
+            <!-- Bastardos sin gloria -->
+    
+            <div class="mb-4 d-flex flex-column align-items-center">
+                <h3>Bastardos sin gloria</h3>
+                <div id="carouselBSG" class="carousel slide">
+                   <div class="carousel-indicators">
+                       <button type="button" data-bs-target="#carouselBSG" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                       <button type="button" data-bs-target="#carouselBSG" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                       <button type="button" data-bs-target="#carouselBSG" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                   </div>
+                   <div class="carousel-inner">
+                       <div class="carousel-item active">
+                           <img src="{%static 'img/bsg/bsg-portada.jpg'%}" class="d-block w-100" alt="...">
+                       </div>
+                       <div class="carousel-item">
+                           <img src="{%static 'img/bsg/bsg-face.jpg'%}" class="d-block w-100" alt="...">
+                       </div>
+                       <div class="carousel-item">
+                           <img src="{%static 'img/bsg/1.jpg'%}" class="d-block w-100" alt="...">
+                       </div>
+                   </div>
+                   <button class="carousel-control-prev" type="button" data-bs-target="#carouselBSG" data-bs-slide="prev">
+                       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                       <span class="visually-hidden">Previous</span>
+                   </button>
+                   <button class="carousel-control-next" type="button" data-bs-target="#carouselBSG" data-bs-slide="next">
+                       <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                       <span class="visually-hidden">Next</span>
+                   </button>
+                </div>
+            </div>
+        </div>
+
+
+        <br>
+
+        <div class="carrusel-1 d-flex flex-row align-items-center gap-2 justify-content-center ">
+            <!-- Her -->
+    
+            <div class="mb-4 d-flex flex-column align-items-center">
+                <h3>Her</h3>
+                <div id="carouselHer" class="carousel slide">
+                    <div class="carousel-indicators">  
+                        <button type="button" data-bs-target="#carouselHer" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselHer" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselHer" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#carouselHer" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{%static 'img/her/her-portada.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{%static 'img/her/her-face.webp'%}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{%static 'img/her/5.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{%static 'img/her/her-sentado.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselHer" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>   
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselHer" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+            <br>
+            <!-- Blade runner 2049 -->
+            
+            <div class="mb-4 d-flex flex-column align-items-center">
+
+                <h3>Blade Runner: 2049</h3>
+                <div id="carouselBR" class="carousel slide">
+                    <div class="carousel-indicators">  
+                        <button type="button" data-bs-target="#carouselBR" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselBR" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselBR" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#carouselBR" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                        <button type="button" data-bs-target="#carouselBR" data-bs-slide-to="4" aria-label="Slide 4"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{%static 'img/br/br-portada.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{%static 'img/br/br-face.webp'%}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{%static 'img/br/3.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{%static 'img/br/br-ana.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{%static 'img/br/br-banner.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselBR" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselBR" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="carrusel-1 d-flex flex-row align-items-center gap-2 justify-content-center ">
+            <!-- The lighthouse -->
+            <div class="mb-4 d-flex flex-column align-items-center">
+                <h3>The Lighthouse</h3>
+                <div id="carouselLighthouse" class="carousel slide">
+                    <div class="carousel-indicators">  
+                        <button type="button" data-bs-target="#carouselLighthouse" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselLighthouse" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselLighthouse" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#carouselLighthouse" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{%static 'img/faro/faro-portada.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{%static 'img/faro/faro-face.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{%static 'img/faro/faro-1.png'%}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{%static 'img/faro/8.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselLighthouse" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>   
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselLighthouse" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+
+            <br>
+            <!-- El gran hotel Budapest -->
+            <div class="mb-4 d-flex flex-column align-items-center">
+                <h3>El gran hotel Budapest</h3>
+                <div id="carouselGHB" class="carousel slide">
+                    <div class="carousel-indicators">  
+                        <button type="button" data-bs-target="#carouselGHB" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselGHB" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselGHB" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{%static 'img/ghb/ghb-portada.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{%static 'img/ghb/ghb-face.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{%static 'img/ghb/4.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselGHB" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>   
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselGHB" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <br>
+
+        <div class="carrusel-1 d-flex flex-row align-items-center gap-2 justify-content-center ">
+            <!-- seven -->
+            <div class="mb-4 d-flex flex-column align-items-center">
+                <h3>Seven</h3>
+                <div id="carouselSeven" class="carousel slide">
+                    <div class="carousel-indicators">  
+                        <button type="button" data-bs-target="#carouselSeven" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselSeven" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselSeven" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{%static 'img/seven/seven-portada.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{%static 'img/seven/seven-face.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{%static 'img/seven/7.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselSeven" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>   
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselSeven" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+
+            <br>
+            <!-- oldboy -->
+            <div class="mb-4 d-flex flex-column align-items-center">
+                <h3>Oldboy</h3>
+                <div id="carouselOldboy" class="carousel slide">
+                    <div class="carousel-indicators">  
+                        <button type="button" data-bs-target="#carouselOldboy" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselOldboy" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselOldboy" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{%static 'img/oldboy/oldboy-portada.jpeg'%}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{%static 'img/oldboy/oldboy-facha.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{%static 'img/oldboy/6.jpg'%}" class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselOldboy" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselOldboy" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                        
+            </div>
+
+        </div>
+    </section>
+
+
+
+{% endblock %}  
