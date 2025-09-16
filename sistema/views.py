@@ -30,7 +30,7 @@ def contacto(request):
 def galeria(request):
     return render(request, 'sistema/galeria.html')
 
-# Listado dinámico de películas desde la DB
+# Listado dinámico de películas desde la DB - VERSIÓN MEJORADA
 def listado_peliculas(request):
     queryset = WatchedMovie.objects.all()
 

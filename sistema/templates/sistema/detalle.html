@@ -1,44 +1,182 @@
 {% extends 'sistema/base.html' %}
 {% load static %}
+{% load movie_filters %}
 {% block title %}{{ pelicula.name }} - Detalle{% endblock %}
 
 {% block contenido %}
-<div class="detalle container">
-    <div class="row g-4 align-items-start">
-        <div class="col-md-4">
-            <img src="{{ pelicula.poster_url }}" alt="{{ pelicula.name }}" class="img-fluid rounded shadow">
+<div class="container mt-5 pt-5">
+    <!-- Header con el título de la película - mismo estilo que lista -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card text-white" style="background: linear-gradient(135deg, #50ae5d 0%, #1c1c1c 100%);">
+                <div class="card-body">
+                    <h1 class="card-title mb-0">
+                        <i class="fas fa-film me-2"></i>{{ pelicula.name }}
+                    </h1>
+                    <p class="card-text mb-0">
+                        <span class="badge bg-light text-dark me-2">{{ pelicula.year }}</span>
+                        <span class="badge bg-warning text-dark">
+                            <i class="fas fa-star me-1"></i>{{ pelicula.rating }}
+                        </span>
+                    </p>
+                </div>
+            </div>
         </div>
+    </div>
+
+    <div class="row">
+        <!-- Columna del póster -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm movie-card">
+                <div class="position-relative">
+                    <img src="{{ pelicula.poster_url }}" 
+                         alt="{{ pelicula.name }}" 
+                         class="card-img-top rounded" 
+                         style="height: 600px; object-fit: cover;">
+                    
+                    <!-- Rating badge en el póster -->
+                    <div class="position-absolute top-0 end-0 m-3">
+                        <span class="badge bg-warning text-dark fs-5">
+                            <i class="fas fa-star me-1"></i>{{ pelicula.rating }}
+                        </span>
+                    </div>
+
+                    <!-- Year badge -->
+                    <div class="position-absolute bottom-0 start-0 m-3">
+                        <span class="badge bg-dark fs-6">{{ pelicula.year }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="card mt-3 shadow-sm">
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'listado_peliculas' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-arrow-left me-2"></i>Volver al listado
+                        </a>
+                        {% if pelicula.letterboxd_uri %}
+                        <a href="{{ pelicula.letterboxd_uri }}" target="_blank" class="btn btn-success">
+                            <i class="fas fa-external-link-alt me-2"></i>Ver en Letterboxd
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna de información detallada -->
         <div class="col-md-8">
-            <div class="card shadow-sm">
-                <div class="card-header">
-                    <h1 class="card-title mb-0">{{ pelicula.name }}</h1>
+            <!-- Card de información principal -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-info-circle me-2"></i>Información
+                    </h4>
                 </div>
                 <div class="card-body">
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <p><strong>Año:</strong> {{ pelicula.year }}</p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><strong>Rating:</strong> {{ pelicula.rating }}</p>
+                    <!-- Rating visual con estrellas - igual que en lista -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h5 class="mb-2">Mi Valoración</h5>
+                            <div class="d-flex align-items-center">
+                                {% with rating=pelicula.rating|floatformat:0 %}
+                                    {% for i in "12345"|make_list %}
+                                        {% if forloop.counter <= rating %}
+                                            <i class="fas fa-star text-warning fs-3 me-1"></i>
+                                        {% elif forloop.counter == rating|add:1 and pelicula.rating|floatformat:1|slice:"-1" >= "5" %}
+                                            <i class="fas fa-star-half-alt text-warning fs-3 me-1"></i>
+                                        {% else %}
+                                            <i class="far fa-star text-warning fs-3 me-1"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endwith %}
+                                <span class="ms-3 fs-4 text-primary fw-bold">{{ pelicula.rating }}/5</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <p><strong>Géneros:</strong> 
-                            <span class="badge bg-secondary">{{ pelicula.genres }}</span>
-                        </p>
+
+                    <!-- Información básica en formato grid -->
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-3">
+                            <h6 class="text-muted mb-1">
+                                <i class="fas fa-calendar me-2"></i>Año
+                            </h6>
+                            <p class="fs-5 mb-0">{{ pelicula.year }}</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <h6 class="text-muted mb-1">
+                                <i class="fas fa-clock me-2"></i>Fecha Vista
+                            </h6>
+                            <p class="fs-6 mb-0">{{ pelicula.date|date:"d/m/Y" }}</p>
+                        </div>
                     </div>
+
+                    <!-- Géneros - mismo estilo que la lista -->
+                    {% if pelicula.genres %}
                     <div class="mb-4">
-                        <h5>Sinopsis:</h5>
-                        <p class="text-justify">{{ pelicula.overview }}</p>
+                        <h6 class="text-muted mb-2">
+                            <i class="fas fa-tags me-2"></i>Géneros
+                        </h6>
+                        <div>
+                            {% for genre in pelicula.genres|split:"," %}
+                                <span class="badge bg-secondary me-2 mb-2 fs-6 px-3 py-2">{{ genre|trim }}</span>
+                            {% endfor %}
+                        </div>
                     </div>
-                    
-                    <div class="d-flex gap-2">
-                        <a href="{% url 'listado_peliculas' %}" class="btn">
-                            <i class="fas fa-arrow-left"></i> Volver al listado
-                        </a>
-                        <a href="{{ pelicula.letterboxd_uri }}" target="_blank" class="btn">
-                            <i class="fas fa-play"></i> Ver en Letterboxd
-                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Card de sinopsis -->
+            {% if pelicula.overview %}
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-book-open me-2"></i>Sinopsis
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <p class="fs-6 lh-lg text-justify mb-0">{{ pelicula.overview }}</p>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Card de estadísticas adicionales -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-chart-bar me-2"></i>Detalles Adicionales
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-hashtag text-primary me-2"></i>
+                                <div>
+                                    <small class="text-muted d-block">ID TMDb</small>
+                                    <span class="fw-bold">{{ pelicula.tmdb_id|default:"No disponible" }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-link text-success me-2"></i>
+                                <div>
+                                    <small class="text-muted d-block">Letterboxd</small>
+                                    <span class="fw-bold">
+                                        {% if pelicula.letterboxd_uri %}
+                                            <a href="{{ pelicula.letterboxd_uri }}" target="_blank" class="text-success">
+                                                Ver perfil
+                                            </a>
+                                        {% else %}
+                                            No disponible
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -46,5 +184,66 @@
     </div>
 </div>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+/* Estilos específicos para la página de detalle que mantienen la consistencia */
+.movie-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 0px 6px 6px var(--primary-color);
+    -webkit-box-shadow: 0px 0px 6px 6px var(--primary-color);
+    -moz-box-shadow: 0px 0px 6px 6px var(--primary-color);
+}
+
+.badge {
+    font-size: 0.75em;
+}
+
+.card-header {
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+/* Efectos hover para los badges de género */
+.badge.bg-secondary:hover {
+    background-color: var(--primary-color) !important;
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: all 0.2s ease;
+}
+
+/* Estilos para las estrellas más grandes */
+.fa-star.fs-3 {
+    filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.3));
+}
+
+/* Animación sutil para los botones */
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+/* Espaciado mejorado para móviles */
+@media (max-width: 768px) {
+    .fs-3 {
+        font-size: 1.5rem !important;
+    }
+    
+    .fs-5 {
+        font-size: 1.1rem !important;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+}
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 {% endblock %}

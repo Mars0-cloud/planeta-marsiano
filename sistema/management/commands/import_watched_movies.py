@@ -43,20 +43,11 @@ class Command(BaseCommand):
                         movie_info = movie_details.info()
                         genres = ', '.join([genre['name'] for genre in movie_info.get('genres', [])])
                         
-                        # También obtener director si está disponible
-                        credits = movie_details.credits()
-                        director = ''
-                        for crew in credits.get('crew', []):
-                            if crew.get('job') == 'Director':
-                                director = crew.get('name', '')
-                                break
-                        
                     else:
                         tmdb_id = None
                         poster_url = ''
                         overview = ''
                         genres = ''
-                        director = ''
 
                     # Crear o actualizar en la DB
                     movie_obj, created = WatchedMovie.objects.update_or_create(
@@ -70,7 +61,6 @@ class Command(BaseCommand):
                             'poster_url': poster_url,
                             'overview': overview,
                             'genres': genres,
-                            'director': director if 'director' in [f.name for f in WatchedMovie._meta.fields] else ''
                         }
                     )
                     

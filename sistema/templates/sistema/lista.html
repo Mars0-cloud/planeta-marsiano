@@ -1,70 +1,235 @@
 {% extends "sistema/base.html" %}
 {% load static %}
-{% block title %}Inicio - Lista{% endblock %}
+{% load movie_filters %}
+{% block title %}Lista de Películas{% endblock %}
 
 {% block contenido %}
-<!-- <div class="galeria-titulo text-center px-3 py-4 shadow-sm">
-    <h1>Bienvenido a la Lista</h1> 
-    <p>Explora nuestra colección de películas y encuentra tu próxima favorita.</p>
-</div> -->
-
 <div class="container mt-5 pt-5">
-    <div class="row">
-        <!-- FILTROS LATERALES -->
-        <div class="col-md-3 mb-4">
-            <div class="card p-3 shadow-sm">
-                <h5 class="mb-3">Filtros</h5>
-                <form method="get">
-                    <div class="mb-3">
-                        <input type="text" name="title" class="form-control" placeholder="Buscar por título" value="{{ request.GET.title }}">
-                    </div>
-                    <div class="mb-3">
-                        <input type="number" name="year" class="form-control" placeholder="Filtrar por año" value="{{ request.GET.year }}">
-                    </div>
-                    <div class="mb-3">
-                        <input type="text" name="genre" class="form-control" placeholder="Filtrar por género" value="{{ request.GET.genre }}">
-                    </div>
-                    <div class="mb-3">
-                        <select name="sort" class="form-control">
-                            <option value="name" {% if request.GET.sort == "name" %}selected{% endif %}>A-Z</option>
-                            <option value="-name" {% if request.GET.sort == "-name" %}selected{% endif %}>Z-A</option>
-                            <option value="year" {% if request.GET.sort == "year" %}selected{% endif %}>Año asc</option>
-                            <option value="-year" {% if request.GET.sort == "-year" %}selected{% endif %}>Año desc</option>
-                            <option value="rating" {% if request.GET.sort == "rating" %}selected{% endif %}>Mejor valoradas</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Aplicar</button>
-                </form>
-                <form method="get" class="mb-4">
-                    <input type="checkbox" name="solo_vistas" value="1" {% if request.GET.solo_vistas == '1' %}checked{% endif %}>
-                    Mostrar solo películas vistas
-                    <button type="submit">Aplicar</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- LISTA DE PELÍCULAS -->
-        <div class="col-md-9">
-            <div class="row">
-                {% for peli in peliculas %}
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 shadow-sm">
-                            <div class="pelicula card-body d-flex flex-column align-items-center">
-                                <h5 class="card-title text-center">{{ peli.name }}</h5>
-                                <img src="{{ peli.poster_url }}" alt="{{ peli.name }}" class="img-fluid mb-3" style="max-height: 300px; object-fit: cover;">
-                            
-                                <!-- {% if peli.vista %}
-                                    <span class="badge bg-success gap-4">Vista</span>
-                                {% endif %} -->
-                                <a href="{% url 'detalle_pelicula' peli.id %}" class="btn mt-auto">Ver detalle</a>
-                            </div>
-                        </div>
-                    </div>
-                {% empty %}
-                    <p class="text-center">No se encontraron películas.</p>
-                {% endfor %}
+    <!-- Header con estadísticas -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card lista-header text-white">
+                <div class="card-body">
+                    <h2 class="card-title">
+                        <i class="fas fa-film me-2"></i>Mi Biblioteca de Películas
+                    </h2>
+                    <p class="card-text">
+                        <span class="badge bg-light text-dark me-2">{{ total_peliculas }} películas</span>
+                        {% if current_filters.title or current_filters.genre or current_filters.year or current_filters.rating or current_filters.decade %}
+                            <span class="badge bg-warning text-dark">Filtros aplicados</span>
+                        {% endif %}
+                    </p>
+                </div>
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <!-- FILTROS LATERALES MEJORADOS -->
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-filter me-2"></i>Filtros
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form method="get" id="filterForm">
+                        <!-- Búsqueda por título -->
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="fas fa-search me-1"></i>Buscar título
+                            </label>
+                            <input type="text" name="title" class="form-control" 
+                                   placeholder="Ej: Inception..." 
+                                   value="{{ current_filters.title }}">
+                        </div>
+
+                        <!-- Filtro por género -->
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="fas fa-tags me-1"></i>Género
+                            </label>
+                            <select name="genre" class="form-control">
+                                <option value="">Todos los géneros</option>
+                                {% for genre in genres_list %}
+                                    <option value="{{ genre }}" 
+                                            {% if current_filters.genre == genre %}selected{% endif %}>
+                                        {{ genre }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Filtro por año -->
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="fas fa-calendar me-1"></i>Año específico
+                            </label>
+                            <select name="year" class="form-control">
+                                <option value="">Cualquier año</option>
+                                {% for year in years_list %}
+                                    <option value="{{ year }}" 
+                                            {% if current_filters.year == year|stringformat:"s" %}selected{% endif %}>
+                                        {{ year }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Filtro por década -->
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="fas fa-history me-1"></i>Década
+                            </label>
+                            <select name="decade" class="form-control">
+                                <option value="">Cualquier década</option>
+                                {% for decade in decades_list %}
+                                    <option value="{{ decade }}" 
+                                            {% if current_filters.decade == decade|stringformat:"s" %}selected{% endif %}>
+                                        {{ decade }}s
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <!-- Filtro por rating mínimo -->
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="fas fa-star me-1"></i>Rating mínimo
+                            </label>
+                            <select name="rating" class="form-control">
+                                <option value="">Cualquier rating</option>
+                                <option value="4.5" {% if current_filters.rating == "4.5" %}selected{% endif %}>⭐ 4.5+</option>
+                                <option value="4.0" {% if current_filters.rating == "4.0" %}selected{% endif %}>⭐ 4.0+</option>
+                                <option value="3.5" {% if current_filters.rating == "3.5" %}selected{% endif %}>⭐ 3.5+</option>
+                                <option value="3.0" {% if current_filters.rating == "3.0" %}selected{% endif %}>⭐ 3.0+</option>
+                            </select>
+                        </div>
+
+                        <!-- Ordenamiento -->
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="fas fa-sort me-1"></i>Ordenar por
+                            </label>
+                            <select name="sort" class="form-control">
+                                <option value="date" {% if current_filters.sort == "date" %}selected{% endif %}>Más recientes</option>
+                                <option value="name" {% if current_filters.sort == "name" %}selected{% endif %}>A-Z</option>
+                                <option value="-name" {% if current_filters.sort == "-name" %}selected{% endif %}>Z-A</option>
+                                <option value="year" {% if current_filters.sort == "year" %}selected{% endif %}>Año ascendente</option>
+                                <option value="-year" {% if current_filters.sort == "-year" %}selected{% endif %}>Año descendente</option>
+                                <option value="rating" {% if current_filters.sort == "rating" %}selected{% endif %}>Mejor rating</option>
+                                <option value="-rating" {% if current_filters.sort == "-rating" %}selected{% endif %}>Peor rating</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 mb-2">
+                            <i class="fas fa-search me-1"></i>Aplicar Filtros
+                        </button>
+                        <a href="{% url 'listado_peliculas' %}" class="btn btn-outline-secondary w-100">
+                            <i class="fas fa-times me-1"></i>Limpiar
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- LISTA DE PELÍCULAS CON RATINGS -->
+        <div class="col-md-9">
+            {% if peliculas %}
+                <div class="row">
+                    {% for peli in peliculas %}
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-4">
+                            <div class="card h-100 shadow-sm movie-card">
+                                <div class="position-relative">
+                                    <img src="{{ peli.poster_url }}" 
+                                         alt="{{ peli.name }}" 
+                                         class="card-img-top" 
+                                         style="height: auto; object-fit: cover;">
+                                    
+                                    <!-- Rating badge -->
+                                    <div class="position-absolute top-0 end-0 m-2">
+                                        <span class="badge bg-warning text-dark fs-6">
+                                            <i class="fas fa-star me-1"></i>{{ peli.rating }}
+                                        </span>
+                                    </div>
+
+                                    <!-- Year badge -->
+                                    <div class="position-absolute bottom-0 start-0 m-2">
+                                        <span class="badge bg-dark">{{ peli.year }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">{{ peli.name }}</h5>
+                                    
+                                    <!-- Géneros -->
+                                    {% if peli.genres %}
+                                        <div class="mb-2">
+                                            {% for genre in peli.genres|split:"," %}
+                                                <span class="badge bg-secondary me-1 mb-1">{{ genre|trim }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+
+                                    <!-- Rating visual con estrellas -->
+                                    <div class="mb-2">
+                                        {% with rating=peli.rating|floatformat:0 %}
+                                            {% for i in "12345"|make_list %}
+                                                {% if forloop.counter <= rating %}
+                                                    <i class="fas fa-star text-warning"></i>
+                                                {% elif forloop.counter == rating|add:1 and peli.rating|floatformat:1|slice:"-1" >= "5" %}
+                                                    <i class="fas fa-star-half-alt text-warning"></i>
+                                                {% else %}
+                                                    <i class="far fa-star text-warning"></i>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endwith %}
+                                        <small class="text-muted ms-2">{{ peli.rating }}/5</small>
+                                    </div>
+
+                                    <!-- Overview resumido -->
+                                    {% if peli.overview %}
+                                        <p class="card-text text-muted small">
+                                            {{ peli.overview|truncatechars:100 }}
+                                        </p>
+                                    {% endif %}
+
+                                    <!-- Fecha vista -->
+                                    <div class="mt-auto">
+                                        <small class="text-muted">
+                                            <i class="fas fa-calendar me-1"></i>Vista el {{ peli.date|date:"d/m/Y" }}
+                                        </small>
+                                        <a href="{% url 'detalle_pelicula' peli.id %}" 
+                                           class="btn btn-sm float-end">
+                                            Ver detalle
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="text-center py-5">
+                    <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                    <h4>No se encontraron películas</h4>
+                    <p class="text-muted">Intenta cambiar los filtros o <a href="{% url 'listado_peliculas' %}">ver todas las películas</a></p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
 </div>
+
+<script>
+// Auto-submit del formulario cuando cambien los selects
+document.addEventListener('DOMContentLoaded', function() {
+    const selects = document.querySelectorAll('#filterForm select');
+    selects.forEach(select => {
+        select.addEventListener('change', function() {
+            document.getElementById('filterForm').submit();
+        });
+    });
+});
+</script>
 {% endblock %}

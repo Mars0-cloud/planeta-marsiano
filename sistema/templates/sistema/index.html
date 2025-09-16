@@ -1,77 +1,297 @@
 {% extends "sistema/base.html" %}
 {% load static %}
-{% block title %}Inicio - Libreria{% endblock %}
+{% block title %}Inicio - Planeta Marsiano{% endblock %}
 
 {% block contenido %}
-            
-    <section class="inicio justify-content-center mb-4">
+    <!-- Hero Section con imagen de fondo -->
+    <section class="inicio justify-content-center mb-4 position-relative">
         <img src="{% static 'img/bienvenida.jpg' %}" alt="bienvenida" class="inicio-imagen">
-        <div class="inicio-texto text-left">
-            <h1 class=" mt-5">Te damos la bienvenida.</h1>
-            <p>Explora la increíble colección de peliculas de Matías en Planeta Marsiano.</p>
-            <a href="{% url 'listado_peliculas' %}" class="btn btn-inicio">Ver ahora</a>
+        <div class="inicio-texto text-left position-absolute">
+            <h1 class="mt-5 display-4 fw-bold">Te damos la bienvenida a Planeta Marsiano</h1>
+            <p class="fs-5 mb-4">Descubre una colección curada de películas extraordinarias, desde clásicos atemporales hasta joyas contemporáneas.</p>
+            <div class="d-flex gap-3">
+                <a href="{% url 'listado_peliculas' %}" class="btn btn-inicio btn-lg">
+                    <i class="fas fa-play me-2"></i>Explorar Películas
+                </a>
+                <a href="{% url 'about' %}" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-info-circle me-2"></i>Conoce más
+                </a>
+            </div>
         </div>
     </section>
 
-    <hr>    
+    <!-- Separador estético -->
+    <div class="divider-section">
+        <hr class="custom-hr">
+    </div>
 
-    <section class="inicio-descripcion text-left d-flex flex-column gap-2 mt-4 mb-4">
-        <h2>¿Listo para descubrir Planeta Marsiano?</h2>
-        <p>Sumérgete en el universo del séptimo arte con una cuidada y vasta selección de películas y 
-            series que abarcan desde los grandes clásicos hasta las producciones más recientes. Cada obra ha sido destacada, 
-            analizada y catalogada con el inconfundible criterio del crítico de cine Matías Riquelme, cuya mirada rigurosa y 
-            apasionada invita a descubrir nuevas perspectivas, apreciar cada detalle narrativo y redescubrir el verdadero 
-            poder del cine. Aquí encontrarás no solo recomendaciones, sino también un espacio donde la reflexión, el análisis 
-            y el amor por el séptimo arte se encuentran para guiarte en tu próxima experiencia cinematográfica.</p>
+    <!-- Sección descripción mejorada -->
+    <section class="inicio-descripcion container my-5">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="display-5 mb-4 fw-bold">¿Listo para descubrir el cine desde una nueva perspectiva?</h2>
+                <p class="lead fs-6 text-justify">
+                    Sumérgete en el universo del séptimo arte con una cuidada selección de películas que van desde 
+                    los grandes clásicos hasta las producciones más innovadoras de la actualidad. Cada obra ha sido 
+                    cuidadosamente seleccionada, analizada y catalogada con criterio cinematográfico riguroso.
+                </p>
+                <p class="fs-6 text-justify mt-3">
+                    Aquí encontrarás no solo una biblioteca personal de películas extraordinarias, sino también 
+                    un espacio donde la pasión por el cine se refleja en cada rating, cada género catalogado y 
+                    cada recomendación. Desde dramas intensos hasta comedias brillantes, desde terror psicológico 
+                    hasta ciencia ficción visionaria: una colección que invita a redescubrir el verdadero poder 
+                    transformador del cine.
+                </p>
+                
+                <!-- Estadísticas rápidas -->
+                <div class="row mt-5">
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <i class="fas fa-film fa-3x text-primary mb-3"></i>
+                            <h3 class="fw-bold">82+</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <i class="fas fa-star fa-3x text-warning mb-3"></i>
+                            <h3 class="fw-bold">4.2</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <i class="fas fa-tags fa-3x text-success mb-3"></i>
+                            <h3 class="fw-bold">20+</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <hr>
+    <!-- Separador estético -->
+    <div class="divider-section">
+        <hr class="custom-hr">
+    </div>
 
-    <section class="inicio-banner mt-4 mb-4">
+    <!-- Imagen banner divisoria -->
+    <section class="inicio-banner mt-4 mb-5 position-relative">
         <img src="{% static 'img/trainspotting/banner.jpg' %}" alt="Banner" class="banner">
-    </section>
-
-    <section class="inicio-links text-left d-flex flex-column gap-2 mt-4 mb-8">
-        <h2>Explora más secciones</h2>
-        <div class="d-flex flex-wrap justify-content-evenly  gap-4">
-
-            <div class="card text-center align-items-center " style="width: 20rem;">
-                <img src="{% static 'img/seven/seven-face.jpg'%}" alt="1" class="card-img-top">
-
-                <div class="card-body">
-                    <h5 class="card-title">Lista</h5>
-                    <a href="{% url 'listado_peliculas' %}" class="btn">Ver Lista</a>
-                </div>
+        <div class="banner-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+            <div class="text-center text-white">
+                <h3 class="display-6 fw-bold mb-3">Cada película cuenta una historia</h3>
+                <p class="fs-5">Explora las diferentes secciones de nuestra biblioteca</p>
             </div>
-
-            <div class="card text-center align-items-center" style="width: 20rem;">
-                <img src="{% static 'img/br/br-face.webp' %}" alt="" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Galeria</h5>
-                    <a href="{% url 'galeria' %}" class="btn">Ver Galeria</a>
-                </div>
-            </div>
-
-            <div class="card text-center align-items-center" style="width: 20rem;">
-                <img src="{%static 'img/her/her-face.webp'%}" alt="" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Contacto</h5>
-                    <a href="{% url 'contacto' %}" class="btn">Contactarse</a>    
-                </div>
-            </div>
-
-            <div class="card text-center align-items-center" style="width: 20rem;">
-                <img src="{%static 'img/ghb/ghb-face.jpg'%}" alt="" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title   ">Acerca de</h5>
-                    <a href="{% url 'about' %}" class="btn">Ver Acerca de</a>
-                </div>
-            </div>
-            
-        </div>
-
-        <div class="mb-8 p-5">
-            
         </div>
     </section>
-{% endblock %}  
+
+    <!-- Sección de navegación mejorada -->
+    <section class="inicio-links container my-5 d-flex flex-column">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Explora Planeta Marsiano</h2>
+            <p class="lead">Navega por las diferentes secciones y descubre todo lo que tenemos para ofrecerte</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            <!-- Card Lista -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card navigation-card h-100 shadow-lg border-0">
+                    <div class="position-relative overflow-hidden">
+                        <img src="{% static 'img/seven/seven-face.jpg' %}" alt="Lista de Películas" class="card-img-top navigation-img">
+                        <div class="card-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+                            <i class="fas fa-list fa-4x text-white opacity-75"></i>
+                        </div>
+                    </div>
+                    <div class="card-body d-flex flex-column text-center p-4">
+                        <h4 class="card-title fw-bold mb-3">Biblioteca de Películas</h4>
+                        <p class="card-text text-muted mb-4">
+                            Explora la colección completa de películas vistas, con ratings, géneros y filtros avanzados 
+                            para encontrar exactamente lo que buscas.
+                        </p>
+                        <div class="mt-auto">
+                            <a href="{% url 'listado_peliculas' %}" class="btn btn-success btn-lg">
+                                <i class="fas fa-film me-2"></i>Ver Biblioteca
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Contacto -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card navigation-card h-100 shadow-lg border-0">
+                    <div class="position-relative overflow-hidden">
+                        <img src="{% static 'img/her/her-face.webp' %}" alt="Contacto" class="card-img-top navigation-img">
+                        <div class="card-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+                            <i class="fas fa-envelope fa-4x text-white opacity-75"></i>
+                        </div>
+                    </div>
+                    <div class="card-body d-flex flex-column text-center p-4">
+                        <h4 class="card-title fw-bold mb-3">Contacto</h4>
+                        <p class="card-text text-muted mb-4">
+                            ¿Tienes recomendaciones de películas? ¿Quieres discutir sobre cine? 
+                            Ponte en contacto y comparte tu pasión cinematográfica.
+                        </p>
+                        <div class="mt-auto">
+                            <a href="{% url 'contacto' %}" class="btn btn-success btn-lg">
+                                <i class="fas fa-comments me-2"></i>Contactar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Acerca de -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card navigation-card h-100 shadow-lg border-0">
+                    <div class="position-relative overflow-hidden">
+                        <img src="{% static 'img/ghb/ghb-face.jpg' %}" alt="Acerca de" class="card-img-top navigation-img">
+                        <div class="card-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+                            <i class="fas fa-user fa-4x text-white opacity-75"></i>
+                        </div>
+                    </div>
+                    <div class="card-body d-flex flex-column text-center p-4">
+                        <h4 class="card-title fw-bold mb-3">Acerca de Planeta Marsiano</h4>
+                        <p class="card-text text-muted mb-4">
+                            Conoce la historia detrás de esta biblioteca cinematográfica personal y descubre 
+                            la filosofía que guía cada selección.
+                        </p>
+                        <div class="mt-auto">
+                            <a href="{% url 'about' %}" class="btn btn-success btn-lg">
+                                <i class="fas fa-info-circle me-2"></i>Conoce Más
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to action final -->
+        <div class="text-center mt-5 p-5">
+            <div class="cta-section rounded p-4">
+                <h3 class="fw-bold mb-3">¿Preparado para comenzar tu viaje cinematográfico?</h3>
+                <p class="fs-5 mb-4">Únete a la experiencia Planeta Marsiano y descubre películas que cambiarán tu perspectiva</p>
+                <a href="{% url 'listado_peliculas' %}" class="btn btn-success btn-lg">
+                    <i class="fas fa-rocket me-2"></i>¡Empezar Ahora!
+                </a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+<style>
+/* Estilos adicionales para el index mejorado */
+.custom-hr {
+    border: none;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    margin: 2rem 0;
+}
+
+.stat-card {
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-10px);
+}
+
+.stat-card h3 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin: 1rem 0 0.5rem 0;
+}
+
+.banner-overlay {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+}
+
+.navigation-card {
+    transition: all 0.4s ease;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.navigation-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 0px 15px 8px rgba(80, 174, 93, 0.3) !important;
+    -webkit-box-shadow: 0px 0px 15px 8px rgba(80, 174, 93, 0.3) !important;
+    -moz-box-shadow: 0px 0px 15px 8px rgba(80, 174, 93, 0.3) !important;
+}
+
+.navigation-img {
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.navigation-card:hover .navigation-img {
+    transform: scale(1.1);
+}
+
+.card-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.navigation-card:hover .card-overlay {
+    opacity: 1;
+}
+
+.cta-section {
+    background: linear-gradient(135deg, rgba(80, 174, 93, 0.1), rgba(28, 28, 28, 0.1));
+    border: 2px solid var(--primary-color);
+}
+
+.divider-section {
+    padding: 1rem 0;
+}
+
+/* Mejoras para texto justificado */
+.text-justify {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .inicio-texto h1 {
+        font-size: 2rem;
+    }
+
+    .inicio-texto p {
+        font-size: 1rem;
+    }
+
+    .stat-card {
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .navigation-img {
+        height: 200px;
+    }
+
+    .btn-lg {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .inicio-texto {
+        padding: 1rem;
+    }
+    
+    .inicio-texto h1 {
+        font-size: 1.5rem;
+    }
+    
+    .display-5 {
+        font-size: 1.8rem;
+    }
+}
+</style>

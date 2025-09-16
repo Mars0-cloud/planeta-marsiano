@@ -8,7 +8,7 @@
 }
 
 :root {
-    --primary-color: #79ad80;
+    --primary-color: #50ae5d;
     --background-color1: #1c1c1c;
     --background-color2: #ffffff;
     --text-color1: #f0f0f0;
@@ -148,10 +148,34 @@ body {
     margin: 20px;
 }
 
+.lista-header {
+    background-color: var(--primary-color);
+}
+
 .pelicula:hover {
     box-shadow: 0px 0px 6px 6px var(--primary-color);
 -webkit-box-shadow: 0px 0px 6px 6px var(--primary-color);
 -moz-box-shadow: 0px 0px 6px 6px var(--primary-color);
+}
+
+.movie-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 0px 6px 6px var(--primary-color);
+    -webkit-box-shadow: 0px 0px 6px 6px var(--primary-color);
+    -moz-box-shadow: 0px 0px 6px 6px var(--primary-color);
+}
+
+.badge {
+    font-size: 0.75em;
+}
+
+.form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
 }
 
 /* contacto */
