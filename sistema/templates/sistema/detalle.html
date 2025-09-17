@@ -184,66 +184,6 @@
     </div>
 </div>
 
-<style>
-/* Estilos específicos para la página de detalle que mantienen la consistencia */
-.movie-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.movie-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 0px 6px 6px var(--primary-color);
-    -webkit-box-shadow: 0px 0px 6px 6px var(--primary-color);
-    -moz-box-shadow: 0px 0px 6px 6px var(--primary-color);
-}
-
-.badge {
-    font-size: 0.75em;
-}
-
-.card-header {
-    border-bottom: 2px solid var(--primary-color);
-}
-
-.text-justify {
-    text-align: justify;
-}
-
-/* Efectos hover para los badges de género */
-.badge.bg-secondary:hover {
-    background-color: var(--primary-color) !important;
-    cursor: pointer;
-    transform: scale(1.05);
-    transition: all 0.2s ease;
-}
-
-/* Estilos para las estrellas más grandes */
-.fa-star.fs-3 {
-    filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.3));
-}
-
-/* Animación sutil para los botones */
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
-}
-
-/* Espaciado mejorado para móviles */
-@media (max-width: 768px) {
-    .fs-3 {
-        font-size: 1.5rem !important;
-    }
-    
-    .fs-5 {
-        font-size: 1.1rem !important;
-    }
-    
-    .card-body {
-        padding: 1rem;
-    }
-}
-</style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 {% endblock %}

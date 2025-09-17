@@ -1,155 +1,283 @@
 {% extends "sistema/base.html" %}
 {% load static %}
-{% block title %}Acerca de{% endblock %}
+{% block title %}Acerca de - Planeta Marsiano{% endblock %}
 
 {% block contenido %}
     <!-- Hero Section -->
-    <section class="contacto justify-content-center mb-4">
-        <img src="{% static 'img/Planet-Terror.png' %}" alt="Planet Terror Logo" class="inicio-imagen">
-        <div class="inicio-texto">
-            <h1 class="mt-5">
-                <i class="fas fa-info-circle me-3"></i>
-                Acerca del Proyecto
-            </h1>
-            <p class="lead">Conoce más sobre Planet Terror y su creador</p>
+    <section class="inicio justify-content-center mb-4 position-relative">
+        <img src="{% static 'img/Planet-Terror.png' %}" alt="Planeta Marsiano" class="inicio-imagen">
+        <div class="inicio-texto text-left position-absolute">
+            <h1 class="mt-5 display-4 fw-bold">Acerca de Planeta Marsiano</h1>
+            <p class="fs-5 mb-4">Una biblioteca cinematográfica personal donde cada película cuenta una historia</p>
+            <a href="{% url 'listado_peliculas' %}" class="btn btn-inicio btn-lg">
+                <i class="fas fa-film me-2"></i>Explorar Biblioteca
+            </a>
         </div>
     </section>
 
-    <!-- Main Content Container -->
-    <div class="container my-5">
-        <!-- Project Overview -->
-        <section class="detalle container my-5 d-flex flex-column align-items-center justify-content-center text-center p-5 rounded-3">
-            <div class="row w-100">
-                <div class="col-md-6 mb-4">
-                    <div class="d-flex flex-column align-items-center">
-                        <div class="feature-icon mb-3">
-                            <i class="fas fa-film"></i>
-                        </div>
-                        <h2 class="text-center mb-3">Planet Terror</h2>
-                        <p class="text-center">Tu tienda de películas en línea donde encontrarás los mejores títulos de terror, ciencia ficción y suspenso. Una experiencia cinematográfica única al alcance de un clic.</p>
-                    </div>
-                </div>
-                <hr class="d-md-none my-4">
-                <div class="col-md-6 mb-4">
-                    <div class="d-flex flex-column align-items-center">
-                        <div class="feature-icon mb-3">
-                            <i class="fas fa-rocket"></i>
-                        </div>
-                        <h2 class="text-center mb-3">Nuestra Misión</h2>
-                        <p class="text-center">Democratizar el acceso al entretenimiento cinematográfico, ofreciendo una plataforma moderna, intuitiva y segura para todos los amantes del cine de género.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Features Section -->
-        <section class="my-5">
-            <h2 class="text-center mb-5">
-                <i class="fas fa-star text-warning me-2"></i>
-                Características del Proyecto
-            </h2>
-            <div class="row justify-content-center">
-                <div class="col-md-4 mb-4">
-                    <div class="card feature-card p-4">
-                        <div class="feature-icon mx-auto">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
-                        <h4 class="text-center mb-3">E-commerce Completo</h4>
-                        <p class="text-center">Sistema de compras integrado con carrito de compras, gestión de pedidos y procesamiento de pagos seguro.</p>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card feature-card p-4">
-                        <div class="feature-icon mx-auto">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                        <h4 class="text-center mb-3">Diseño Responsivo</h4>
-                        <p class="text-center">Interfaz adaptable que funciona perfectamente en dispositivos móviles, tablets y computadoras de escritorio.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Author Section -->
-        <section class="detalle container my-5 d-flex flex-column align-items-center justify-content-center text-center p-5 rounded-3">
-            <div class="row w-100">
-                <div class="col-md-6 mb-4">
-                    <div class="d-flex flex-column align-items-center">
-                        <div class="feature-icon mb-3">
-                            <i class="fas fa-user-graduate"></i>
-                        </div>
-                        <h2 class="text-center mb-3">
-                            <i class="fas fa-code me-2"></i>
-                            Sobre el Desarrollador
+    <div class="container mt-5 pt-3">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card text-white" style="background-color: var(--primary-color);">
+                    <div class="card-body text-center">
+                        <h2 class="card-title mb-3">
+                            <i class="fas fa-info-circle me-3"></i>¿Qué es Planeta Marsiano?
                         </h2>
-                        <p class="text-center">
-                            Soy un estudiante apasionado por el desarrollo web y la tecnología. Planet Terror representa mi proyecto final donde aplico todos los conocimientos adquiridos en programación, diseño web y experiencia de usuario.
+                        <p class="card-text">
+                            <span class="badge bg-light text-dark me-2">Biblioteca Personal</span>
+                            <span class="badge bg-warning text-dark">82+ Películas Catalogadas</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Proyecto Principal -->
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-dark text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-project-diagram me-2"></i>El Proyecto
+                        </h4>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="lead text-center mb-4">
+                            Planeta Marsiano es mi biblioteca cinematográfica personal desarrollada como proyecto web, 
+                            donde documento y catalogo todas las películas que he visto con sus respectivos ratings y análisis.
                         </p>
                         
-                        <!-- Academic Goals -->
-                        <div class="mt-3">
-                            <h6><i class="fas fa-graduation-cap me-2"></i>Objetivos Académicos:</h6>
-                            <ul class="list-unstyled">
-                                <li><i class="fas fa-check text-success me-2"></i>Aplicar frameworks web modernos</li>
-                                <li><i class="fas fa-check text-success me-2"></i>Implementar patrones de diseño</li>
-                                <li><i class="fas fa-check text-success me-2"></i>Desarrollar UX/UI intuitiva</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <div class="d-flex flex-column align-items-center">
-                        <div class="feature-icon mb-3">
-                            <i class="fas fa-tools"></i>
-                        </div>
-                        <h2 class="text-center mb-3">Tecnologías Utilizadas</h2>
-                        
-                        <!-- Technologies Used -->
-                        <div class="mb-4">
-                            <span class="badge bg-primary me-2 mb-2"><i class="fab fa-python me-1"></i>Python</span>
-                            <span class="badge bg-success me-2 mb-2"><i class="fas fa-leaf me-1"></i>Django</span>
-                            <span class="badge bg-warning me-2 mb-2"><i class="fab fa-html5 me-1"></i>HTML5</span>
-                            <span class="badge bg-info me-2 mb-2"><i class="fab fa-css3-alt me-1"></i>CSS3</span>
-                            <span class="badge bg-warning me-2 mb-2"><i class="fab fa-js-square me-1"></i>JavaScript</span>
-                            <span class="badge bg-secondary me-2 mb-2"><i class="fab fa-bootstrap me-1"></i>Bootstrap</span>
-                            <span class="badge bg-dark me-2 mb-2"><i class="fas fa-database me-1"></i>PostgreSQL</span>
-                        </div>
-
-                        <!-- Project Goals -->
-                        <div class="mt-3">
-                            <h6><i class="fas fa-target me-2"></i>Metas del Proyecto:</h6>
-                            <ul class="list-unstyled">
-                                <li><i class="fas fa-check text-success me-2"></i>E-commerce funcional</li>
-                                <li><i class="fas fa-check text-success me-2"></i>Código limpio y escalable</li>
-                                <li><i class="fas fa-check text-success me-2"></i>Experiencia de usuario óptima</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        
-
-        <!-- Contact Information -->
-        <section class="my-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <div class="card border-0 shadow-lg contact-card">
-                        <div class="card-body text-center p-5">
-                            <i class="fas fa-envelope-open-text text-primary contact-icon"></i>
-                            <h2 class="mt-4 mb-3">¿Tienes alguna pregunta?</h2>
-                            <p class="text-muted">Si tienes dudas sobre el proyecto o quieres conocer más detalles técnicos, no dudes en contactarme.</p>
-                            <div class="mt-4">
-                                <a href="mailto:matias20.rs@gmail.com" class="btn btn-lg">
-                                    <i class="fas fa-paper-plane me-2"></i>
-                                    Enviar Mensaje
-                                </a>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="feature-item">
+                                    <i class="fas fa-star text-warning me-3"></i>
+                                    <div>
+                                        <h5 class="mb-2">Sistema de Rating Personal</h5>
+                                        <p class="text-muted">Cada película tiene mi valoración personal del 1 al 5, documentando mi experiencia cinematográfica.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="feature-item">
+                                    <i class="fas fa-tags text-primary me-3"></i>
+                                    <div>
+                                        <h5 class="mb-2">Catalogación por Géneros</h5>
+                                        <p class="text-muted">Organización automática por géneros obtenidos de TMDb para facilitar la navegación.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="feature-item">
+                                    <i class="fas fa-filter text-success me-3"></i>
+                                    <div>
+                                        <h5 class="mb-2">Filtros Avanzados</h5>
+                                        <p class="text-muted">Búsqueda por título, año, década, género y rating para encontrar exactamente lo que busco.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="feature-item">
+                                    <i class="fas fa-chart-bar text-info me-3"></i>
+                                    <div>
+                                        <h5 class="mb-2">Estadísticas Detalladas</h5>
+                                        <p class="text-muted">Análisis completo de mis hábitos cinematográficos y distribución de géneros favoritos.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+
+        <!-- Tecnologías y Desarrollo -->
+        <div class="row mb-5">
+            <div class="col-lg-6 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-dark text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-code me-2"></i>Desarrollo Técnico
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-4">
+                            El proyecto está desarrollado usando tecnologías web modernas, con integración 
+                            a la API de TMDb para obtener información detallada de las películas.
+                        </p>
+                        
+                        <div class="tech-stack">
+                            <h6 class="fw-bold mb-3">Tecnologías utilizadas:</h6>
+                            <div class="mb-3">
+                                <span class="badge bg-success me-2 mb-2 p-2">
+                                    <i class="fab fa-python me-1"></i>Django/Python
+                                </span>
+                                <span class="badge bg-primary me-2 mb-2 p-2">
+                                    <i class="fab fa-html5 me-1"></i>HTML5
+                                </span>
+                                <span class="badge bg-info me-2 mb-2 p-2">
+                                    <i class="fab fa-css3-alt me-1"></i>CSS3
+                                </span>
+                                <span class="badge bg-warning me-2 mb-2 p-2">
+                                    <i class="fab fa-js me-1"></i>JavaScript
+                                </span>
+                                <span class="badge bg-secondary me-2 mb-2 p-2">
+                                    <i class="fab fa-bootstrap me-1"></i>Bootstrap 5
+                                </span>
+                                <span class="badge bg-dark me-2 mb-2 p-2">
+                                    <i class="fas fa-database me-1"></i>SQLite
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="integration-info mt-4">
+                            <h6 class="fw-bold mb-2">
+                                <i class="fas fa-plug text-primary me-2"></i>Integraciones:
+                            </h6>
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    API de TMDb para información de películas
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    Importación automática desde Letterboxd CSV
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    Chart.js para visualización de estadísticas
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-dark text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-lightbulb me-2"></i>Funcionalidades
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-4">
+                            Una aplicación web completa para gestionar y analizar mi experiencia cinematográfica personal.
+                        </p>
+
+                        <div class="functionality-list">
+                            <div class="functionality-item mb-3">
+                                <i class="fas fa-upload text-primary me-3"></i>
+                                <div>
+                                    <strong>Importación automática</strong>
+                                    <p class="text-muted small mb-0">Comando Django que importa mi historial desde Letterboxd y enriquece con datos de TMDb</p>
+                                </div>
+                            </div>
+
+                            <div class="functionality-item mb-3">
+                                <i class="fas fa-search text-success me-3"></i>
+                                <div>
+                                    <strong>Búsqueda y filtrado</strong>
+                                    <p class="text-muted small mb-0">Filtros por género, año, década, rating mínimo con actualización dinámica</p>
+                                </div>
+                            </div>
+
+                            <div class="functionality-item mb-3">
+                                <i class="fas fa-eye text-info me-3"></i>
+                                <div>
+                                    <strong>Vista detallada</strong>
+                                    <p class="text-muted small mb-0">Página individual para cada película con sinopsis, géneros y datos completos</p>
+                                </div>
+                            </div>
+
+                            <div class="functionality-item mb-3">
+                                <i class="fas fa-chart-pie text-warning me-3"></i>
+                                <div>
+                                    <strong>Dashboard estadístico</strong>
+                                    <p class="text-muted small mb-0">Análisis detallado con gráficos interactivos de mis patrones cinematográficos</p>
+                                </div>
+                            </div>
+
+                            <div class="functionality-item">
+                                <i class="fas fa-mobile-alt text-danger me-3"></i>
+                                <div>
+                                    <strong>Diseño responsivo</strong>
+                                    <p class="text-muted small mb-0">Interfaz adaptable para cualquier dispositivo</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Datos del Proyecto -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-dark text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-database me-2"></i>Estado Actual del Proyecto
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-md-3 mb-3">
+                                <div class="stat-item">
+                                    <i class="fas fa-film fa-2x text-primary mb-2"></i>
+                                    <h3 class="fw-bold text-primary">82+</h3>
+                                    <p class="text-muted">Películas Catalogadas</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="stat-item">
+                                    <i class="fas fa-tags fa-2x text-success mb-2"></i>
+                                    <h3 class="fw-bold text-success">20+</h3>
+                                    <p class="text-muted">Géneros Diferentes</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="stat-item">
+                                    <i class="fas fa-star fa-2x text-warning mb-2"></i>
+                                    <h3 class="fw-bold text-warning">4.2</h3>
+                                    <p class="text-muted">Rating Promedio</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="stat-item">
+                                    <i class="fas fa-calendar fa-2x text-info mb-2"></i>
+                                    <h3 class="fw-bold text-info">2024</h3>
+                                    <p class="text-muted">Año de Desarrollo</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navegación -->
+        <div class="row">
+            <div class="col-12">
+                <div class="cta-section text-center p-5 rounded">
+                    <h3 class="fw-bold mb-3">Explora el Proyecto</h3>
+                    <p class="fs-5 mb-4">Descubre todas las funcionalidades de Planeta Marsiano</p>
+                    <div class="d-flex gap-3 justify-content-center flex-wrap">
+                        <a href="{% url 'listado_peliculas' %}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-film me-2"></i>Ver Biblioteca
+                        </a>
+                        <a href="{% url 'estadisticas' %}" class="btn btn-success btn-lg">
+                            <i class="fas fa-chart-bar me-2"></i>Ver Estadísticas
+                        </a>
+                        <a href="{% url 'contacto' %}" class="btn btn-info btn-lg">
+                            <i class="fas fa-envelope me-2"></i>Contacto
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">

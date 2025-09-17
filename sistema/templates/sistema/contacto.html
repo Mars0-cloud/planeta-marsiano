@@ -1,45 +1,223 @@
 {% extends "sistema/base.html" %}
 {% load static %}
-{% block title %}Contacto{% endblock %}
+{% block title %}Contacto - Planeta Marsiano{% endblock %}
 
 {% block contenido %}
-    
-    <section class="contacto justify-content-center mb-4">
+    <!-- Hero Section con imagen de fondo -->
+    <section class="inicio justify-content-center mb-4 position-relative">
         <img src="{% static 'img/br/br-banner.jpg' %}" alt="Contacto" class="inicio-imagen">
-        <div class="inicio-texto">
-            <h1 class="mt-5">Contacto</h1>
-            <p>Estamos aquí para ayudarte. Si tienes alguna pregunta o necesitas asistencia, no dudes en contactarnos.</p>
+        <div class="inicio-texto text-left position-absolute">
+            <h1 class="mt-5 display-4 fw-bold">¡Hablemos de Cine!</h1>
+            <p class="fs-5 mb-4">¿Tienes recomendaciones cinematográficas? ¿Quieres discutir sobre alguna película? Estoy aquí para conversar sobre el séptimo arte.</p>
+            <div class="d-flex gap-3">
+                <a href="#formulario" class="btn btn-inicio btn-lg">
+                    <i class="fas fa-envelope me-2"></i>Enviar Mensaje
+                </a>
+                <a href="{% url 'listado_peliculas' %}" class="btn btn-outline-light btn-lg" style="color: white !important;">
+                    <i class="fas fa-film me-2"></i>Ver Biblioteca
+                </a>
+            </div>
         </div>
     </section>
 
-    <section class="contacto-formulario d-flex flex-row justify-content-evenly gap-4 mt-4 mb-8">
-        
-        <div class="contacto-imagen">
-            <img src="{%static 'img/br/br-ana.jpg'%}" alt="" class="contacto-imagen-img img-fluid rounded">
+    <div class="container mt-5 pt-3">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card text-white" style="background-color: var(--primary-color);">
+                    <div class="card-body text-center">
+                        <h2 class="card-title mb-3">
+                            <i class="fas fa-comments me-3"></i>Conectemos
+                        </h2>
+                        <p class="card-text">
+                            <span class="badge bg-light text-dark me-2">Respuesta en 24 horas</span>
+                            <span class="badge bg-warning text-dark">Siempre dispuesto a hablar de cine</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="contacto-form">
-            <form action="#" method="post" class="formulario d-flex flex-column gap-3">
-                <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" class="form-control" required>
+        <div class="row">
+            <!-- Imagen lateral -->
+            <div class="col-lg-4 mb-4">
+                <div class="card shadow-sm h-auto">
+                    <div class="position-relative">
+                        <img src="{% static 'img/br/br-ana.jpg' %}" 
+                             alt="Imagen de contacto" 
+                             class="card-img rounded contact-image"
+                             style="height: 500px; object-fit: cover;">
+                        <div class="image-overlay position-absolute bottom-0 start-0 w-100 p-4">
+                            <div class="text-white">
+                                <h5 class="fw-bold mb-2">Matías Riquelme</h5>
+                                <p class="mb-0"><i class="fas fa-film me-2"></i>Crítico y Cinéfilo</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="email">Correo Electrónico:</label>
-                    <input type="email" id="email" name="email" class="form-control" required>
+
+                <!-- Información adicional -->
+                <div class="card shadow-sm mt-4">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-info-circle me-2"></i>¿Por qué contactarme?
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="contact-reason mb-3">
+                            <i class="fas fa-star text-warning me-2"></i>
+                            <strong>Recomendaciones personalizadas</strong>
+                            <p class="text-muted small mb-0">Basadas en tus gustos cinematográficos</p>
+                        </div>
+                        <div class="contact-reason mb-3">
+                            <i class="fas fa-comments text-primary me-2"></i>
+                            <strong>Discusiones profundas</strong>
+                            <p class="text-muted small mb-0">Análisis y debate sobre películas</p>
+                        </div>
+                        <div class="contact-reason">
+                            <i class="fas fa-plus text-success me-2"></i>
+                            <strong>Sugerencias para la biblioteca</strong>
+                            <p class="text-muted small mb-0">¿Qué películas debería ver?</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="mensaje">Mensaje:</label>
-                    <textarea id="mensaje" name="mensaje" class="form-control" rows="5" required></textarea>
+            </div>
+
+            <!-- Formulario de contacto -->
+            <div class="col-lg-8" id="formulario">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-dark text-white">
+                        <h4 class="mb-0">
+                            <i class="fas fa-paper-plane me-2"></i>Envía tu Mensaje
+                        </h4>
+                    </div>
+                    <div class="card-body p-4">
+                        <form action="#" method="post" class="contact-form">
+                            {% csrf_token %}
+                            
+                            <!-- Nombre y Email en una fila -->
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nombre" class="form-label fw-bold">
+                                            <i class="fas fa-user me-2 text-primary"></i>Nombre Completo
+                                        </label>
+                                        <input type="text" id="nombre" name="nombre" 
+                                               class="form-control form-control-lg" 
+                                               placeholder="Tu nombre..." required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email" class="form-label fw-bold">
+                                            <i class="fas fa-envelope me-2 text-primary"></i>Correo Electrónico
+                                        </label>
+                                        <input type="email" id="email" name="email" 
+                                               class="form-control form-control-lg" 
+                                               placeholder="tu@email.com" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Asunto -->
+                            <div class="mb-4">
+                                <div class="form-group">
+                                    <label for="asunto" class="form-label fw-bold">
+                                        <i class="fas fa-tag me-2 text-primary"></i>Asunto
+                                    </label>
+                                    <select id="asunto" name="asunto" class="form-control form-control-lg" required>
+                                        <option value="">Selecciona un tema...</option>
+                                        <option value="recomendacion">🎬 Solicitar recomendación</option>
+                                        <option value="discusion">💭 Discutir una película</option>
+                                        <option value="sugerencia">💡 Sugerir película para la biblioteca</option>
+                                        <option value="colaboracion">🤝 Propuesta de colaboración</option>
+                                        <option value="otro">📝 Otro tema</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Mensaje -->
+                            <div class="mb-4">
+                                <div class="form-group">
+                                    <label for="mensaje" class="form-label fw-bold">
+                                        <i class="fas fa-comment-dots me-2 text-primary"></i>Tu Mensaje
+                                    </label>
+                                    <textarea id="mensaje" name="mensaje" 
+                                              class="form-control form-control-lg" 
+                                              rows="6" 
+                                              placeholder="Cuéntame sobre tu consulta cinematográfica, recomendación o lo que tengas en mente..."
+                                              required></textarea>
+                                    <div class="form-text">
+                                        <small class="text-muted">
+                                            <i class="fas fa-lightbulb me-1"></i>
+                                            Tip: Menciona tus géneros favoritos o películas que te han gustado para mejores recomendaciones
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Botones -->
+                            <div class="d-flex gap-3 justify-content-end">
+                                <button type="reset" class="btn btn-outline-secondary btn-lg">
+                                    <i class="fas fa-undo me-2"></i>Limpiar
+                                </button>
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-paper-plane me-2"></i>Enviar Mensaje
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <button type="submit" class="btn">Enviar</button>
-            </form>
+
+                <!-- Información adicional -->
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        <div class="info-card text-center p-4">
+                            <i class="fas fa-clock fa-2x text-success mb-3"></i>
+                            <h5 class="fw-bold">Tiempo de Respuesta</h5>
+                            <p class="text-muted" style="color: white !important;">Normalmente respondo en menos de 24 horas</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="info-card text-center p-4">
+                            <i class="fas fa-heart fa-2x text-danger mb-3"></i>
+                            <h5 class="fw-bold">Pasión por el Cine</h5>
+                            <p class="text-muted" style="color: white !important;">Cada conversación es una oportunidad de descubrir</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="info-card text-center p-4">
+                            <i class="fas fa-handshake fa-2x text-primary mb-3"></i>
+                            <h5 class="fw-bold">Comunidad</h5>
+                            <p class="text-muted" style="color: white !important;">Construyamos juntos una comunidad cinéfila</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-    </section>
-
-    <div class="mb-8 p-5">
-
+        <!-- Call to action -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="cta-section text-center p-5 rounded">
+                    <h3 class="fw-bold mb-3">Mientras esperas mi respuesta...</h3>
+                    <p class="fs-5 mb-4">¿Por qué no echas un vistazo a mi biblioteca cinematográfica?</p>
+                    <div class="d-flex gap-3 justify-content-center flex-wrap">
+                        <a href="{% url 'listado_peliculas' %}" class="btn btn-warning btn-lg" style="color: white !important;">
+                            <i class="fas fa-film me-2"></i>Explorar Películas
+                        </a>
+                        <a href="{% url 'estadisticas' %}" class="btn btn-info btn-lg" style="color: white !important;">
+                            <i class="fas fa-chart-bar me-2"></i>Ver Estadísticas
+                        </a>
+                        <a href="{% url 'index' %}" class="btn btn-outline-primary btn-lg" style="color: white !important;">
+                            <i class="fas fa-home me-2"></i>Inicio
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+{% endblock %}
 
-{% endblock %}  
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
