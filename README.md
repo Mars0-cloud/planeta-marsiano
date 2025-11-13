@@ -23,10 +23,10 @@ Bienvenido a **Planeta Marsiano**: una aplicación web en **Django** para gestio
 ## 📂 Estructura del proyecto
 
 ```
-planeta-marsiano/
+planeta_marsiano/
 ├─ data/                                          # CSV de películas exportadas desde Letterboxd
 │  └─ ratings.csv
-├─ planeta-marsiano/                             # Configuración principal de Django
+├─ planeta_marsiano/                             # Configuración principal de Django
 ├─ sistema/                                      # Aplicación principal
 │  ├─ templates/sistema/                         # HTML templates
 │  ├─ static/                                    # CSS, JS, imágenes
@@ -38,8 +38,8 @@ planeta-marsiano/
 
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/tu-usuario/planeta-marsiano.git
-cd planeta-marsiano
+git clone https://github.com/tu-usuario/planeta_marsiano.git
+cd planeta_marsiano
 ```
 
 ### 2. Crear entorno virtual e instalar dependencias

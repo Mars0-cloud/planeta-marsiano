@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'planeta-marsiano.urls'
+ROOT_URLCONF = 'planeta_marsiano.urls'
 
 TEMPLATES = [
     {
@@ -68,7 +68,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'planeta-marsiano.wsgi.application'
+WSGI_APPLICATION = 'planeta_marsiano.wsgi.application'
 
 
 # Database
