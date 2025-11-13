@@ -1,0 +1,1 @@
+web: gunicorn planeta_marsiano.wsgi:application
